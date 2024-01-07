@@ -1,0 +1,1039 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-search.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script><script src="js/L.Control.Locate.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-search.js"></script>
+        <script src="data/COMUNASYCORREGIMIENTOS_1.js"></script>
+        <script src="data/SITIOSDEINTERSMEDELLN_2.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        })
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+            if (bounds_group.getLayers().length) {
+                map.fitBounds(bounds_group.getBounds());
+            }
+        }
+        map.createPane('pane_GoogleMaps_0');
+        map.getPane('pane_GoogleMaps_0').style.zIndex = 400;
+        var layer_GoogleMaps_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+            pane: 'pane_GoogleMaps_0',
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 19
+        });
+        layer_GoogleMaps_0;
+        map.addLayer(layer_GoogleMaps_0);
+        function pop_COMUNASYCORREGIMIENTOS_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">CODIGO</th>\
+                        <td>' + (feature.properties['CODIGO'] !== null ? autolinker.link(feature.properties['CODIGO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NOMBRE</th>\
+                        <td>' + (feature.properties['NOMBRE'] !== null ? autolinker.link(feature.properties['NOMBRE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_COMUNASYCORREGIMIENTOS_1_0(feature) {
+            switch(String(feature.properties['NOMBRE'])) {
+                case 'Aranjuez':
+                    return {
+                pane: 'pane_COMUNASYCORREGIMIENTOS_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.75)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(48,18,59,0.75)',
+                interactive: true,
+            }
+                    break;
+                case 'Belén':
+                    return {
+                pane: 'pane_COMUNASYCORREGIMIENTOS_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.75)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(61,54,140,0.75)',
+                interactive: true,
+            }
+                    break;
+                case 'Buenos Aires':
+                    return {
+                pane: 'pane_COMUNASYCORREGIMIENTOS_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.75)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(68,87,201,0.75)',
+                interactive: true,
+            }
+                    break;
+                case 'Castilla':
+                    return {
+                pane: 'pane_COMUNASYCORREGIMIENTOS_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.75)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(71,119,239,0.75)',
+                interactive: true,
+            }
+                    break;
+                case 'Corregimiento de Altavista':
+                    return {
+                pane: 'pane_COMUNASYCORREGIMIENTOS_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.75)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(65,150,255,0.75)',
+                interactive: true,
+            }
+                    break;
+                case 'Corregimiento de San Antonio de Prado':
+                    return {
+                pane: 'pane_COMUNASYCORREGIMIENTOS_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.75)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(46,180,242,0.75)',
+                interactive: true,
+            }
+                    break;
+                case 'Corregimiento de San Cristóbal':
+                    return {
+                pane: 'pane_COMUNASYCORREGIMIENTOS_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.75)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(27,208,213,0.75)',
+                interactive: true,
+            }
+                    break;
+                case 'Corregimiento de San Sebastián de Palmitas':
+                    return {
+                pane: 'pane_COMUNASYCORREGIMIENTOS_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.75)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(27,229,181,0.75)',
+                interactive: true,
+            }
+                    break;
+                case 'Corregimiento de Santa Elena':
+                    return {
+                pane: 'pane_COMUNASYCORREGIMIENTOS_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.75)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(55,244,146,0.75)',
+                interactive: true,
+            }
+                    break;
+                case 'Doce de Octubre':
+                    return {
+                pane: 'pane_COMUNASYCORREGIMIENTOS_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.75)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(100,253,106,0.75)',
+                interactive: true,
+            }
+                    break;
+                case 'El Poblado':
+                    return {
+                pane: 'pane_COMUNASYCORREGIMIENTOS_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.75)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(146,255,71,0.75)',
+                interactive: true,
+            }
+                    break;
+                case 'Guayabal':
+                    return {
+                pane: 'pane_COMUNASYCORREGIMIENTOS_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.75)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(180,248,54,0.75)',
+                interactive: true,
+            }
+                    break;
+                case 'La América':
+                    return {
+                pane: 'pane_COMUNASYCORREGIMIENTOS_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.75)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(211,232,53,0.75)',
+                interactive: true,
+            }
+                    break;
+                case 'La Candelaria':
+                    return {
+                pane: 'pane_COMUNASYCORREGIMIENTOS_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.75)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(235,210,57,0.75)',
+                interactive: true,
+            }
+                    break;
+                case 'Laureles Estadio':
+                    return {
+                pane: 'pane_COMUNASYCORREGIMIENTOS_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.75)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(251,185,56,0.75)',
+                interactive: true,
+            }
+                    break;
+                case 'Manrique':
+                    return {
+                pane: 'pane_COMUNASYCORREGIMIENTOS_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.75)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(254,153,44,0.75)',
+                interactive: true,
+            }
+                    break;
+                case 'Popular':
+                    return {
+                pane: 'pane_COMUNASYCORREGIMIENTOS_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.75)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(249,117,29,0.75)',
+                interactive: true,
+            }
+                    break;
+                case 'Robledo':
+                    return {
+                pane: 'pane_COMUNASYCORREGIMIENTOS_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.75)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(236,82,15,0.75)',
+                interactive: true,
+            }
+                    break;
+                case 'San Javier':
+                    return {
+                pane: 'pane_COMUNASYCORREGIMIENTOS_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.75)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(217,56,7,0.75)',
+                interactive: true,
+            }
+                    break;
+                case 'Santa Cruz':
+                    return {
+                pane: 'pane_COMUNASYCORREGIMIENTOS_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.75)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(191,34,2,0.75)',
+                interactive: true,
+            }
+                    break;
+                case 'Villa Hermosa':
+                    return {
+                pane: 'pane_COMUNASYCORREGIMIENTOS_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.75)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(159,16,1,0.75)',
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_COMUNASYCORREGIMIENTOS_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.75)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(122,4,3,0.75)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_COMUNASYCORREGIMIENTOS_1');
+        map.getPane('pane_COMUNASYCORREGIMIENTOS_1').style.zIndex = 401;
+        map.getPane('pane_COMUNASYCORREGIMIENTOS_1').style['mix-blend-mode'] = 'normal';
+        var layer_COMUNASYCORREGIMIENTOS_1 = new L.geoJson(json_COMUNASYCORREGIMIENTOS_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_COMUNASYCORREGIMIENTOS_1',
+            layerName: 'layer_COMUNASYCORREGIMIENTOS_1',
+            pane: 'pane_COMUNASYCORREGIMIENTOS_1',
+            onEachFeature: pop_COMUNASYCORREGIMIENTOS_1,
+            style: style_COMUNASYCORREGIMIENTOS_1_0,
+        });
+        bounds_group.addLayer(layer_COMUNASYCORREGIMIENTOS_1);
+        map.addLayer(layer_COMUNASYCORREGIMIENTOS_1);
+        function pop_SITIOSDEINTERSMEDELLN_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">NOMBRE</th>\
+                        <td>' + (feature.properties['NOMBRE'] !== null ? autolinker.link(feature.properties['NOMBRE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">IMPERDIBLE</th>\
+                        <td>' + (feature.properties['IMPERDIBLE'] !== null ? autolinker.link(feature.properties['IMPERDIBLE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">TIPO</th>\
+                        <td>' + (feature.properties['TIPO'] !== null ? autolinker.link(feature.properties['TIPO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">DIRECCION</th>\
+                        <td>' + (feature.properties['DIRECCION'] !== null ? autolinker.link(feature.properties['DIRECCION'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">BARRIO</th>\
+                        <td>' + (feature.properties['BARRIO'] !== null ? autolinker.link(feature.properties['BARRIO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_SITIOSDEINTERSMEDELLN_2_0(feature) {
+            switch(String(feature.properties['TIPO'])) {
+                case 'Aeropuerto de pasajeros':
+                    return {
+                pane: 'pane_SITIOSDEINTERSMEDELLN_2',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(48,18,59,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Áreas con declaratorias departamentales':
+                    return {
+                pane: 'pane_SITIOSDEINTERSMEDELLN_2',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(57,42,115,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Avenida y calle':
+                    return {
+                pane: 'pane_SITIOSDEINTERSMEDELLN_2',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(64,64,162,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Basílica':
+                    return {
+                pane: 'pane_SITIOSDEINTERSMEDELLN_2',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(68,86,199,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Biblioteca':
+                    return {
+                pane: 'pane_SITIOSDEINTERSMEDELLN_2',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(70,107,227,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Catedral':
+                    return {
+                pane: 'pane_SITIOSDEINTERSMEDELLN_2',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(70,128,246,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Cementerio':
+                    return {
+                pane: 'pane_SITIOSDEINTERSMEDELLN_2',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(66,148,255,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Centro administrativo':
+                    return {
+                pane: 'pane_SITIOSDEINTERSMEDELLN_2',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(55,168,250,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Centro de formación cultural':
+                    return {
+                pane: 'pane_SITIOSDEINTERSMEDELLN_2',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(40,188,235,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Cerro':
+                    return {
+                pane: 'pane_SITIOSDEINTERSMEDELLN_2',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(28,205,216,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Claustro':
+                    return {
+                pane: 'pane_SITIOSDEINTERSMEDELLN_2',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(24,221,194,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Convento':
+                    return {
+                pane: 'pane_SITIOSDEINTERSMEDELLN_2',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(31,233,175,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Edificación comercial':
+                    return {
+                pane: 'pane_SITIOSDEINTERSMEDELLN_2',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(50,242,152,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Escultura':
+                    return {
+                pane: 'pane_SITIOSDEINTERSMEDELLN_2',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(78,249,125,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Estación de ferrocarril':
+                    return {
+                pane: 'pane_SITIOSDEINTERSMEDELLN_2',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(109,254,98,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Estadio':
+                    return {
+                pane: 'pane_SITIOSDEINTERSMEDELLN_2',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(139,255,75,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Estatua':
+                    return {
+                pane: 'pane_SITIOSDEINTERSMEDELLN_2',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(164,252,60,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Fuente':
+                    return {
+                pane: 'pane_SITIOSDEINTERSMEDELLN_2',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(185,246,53,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Iglesia':
+                    return {
+                pane: 'pane_SITIOSDEINTERSMEDELLN_2',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(205,236,52,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Jardín botánico':
+                    return {
+                pane: 'pane_SITIOSDEINTERSMEDELLN_2',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(223,223,55,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Monumento':
+                    return {
+                pane: 'pane_SITIOSDEINTERSMEDELLN_2',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(238,207,58,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Museo':
+                    return {
+                pane: 'pane_SITIOSDEINTERSMEDELLN_2',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(248,190,57,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Otro':
+                    return {
+                pane: 'pane_SITIOSDEINTERSMEDELLN_2',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(253,172,52,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Parque temático y recreativo':
+                    return {
+                pane: 'pane_SITIOSDEINTERSMEDELLN_2',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(254,150,43,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Parque urbano':
+                    return {
+                pane: 'pane_SITIOSDEINTERSMEDELLN_2',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(251,126,33,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Planetario':
+                    return {
+                pane: 'pane_SITIOSDEINTERSMEDELLN_2',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(244,102,23,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Plaza':
+                    return {
+                pane: 'pane_SITIOSDEINTERSMEDELLN_2',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(235,80,14,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Plaza de mercado':
+                    return {
+                pane: 'pane_SITIOSDEINTERSMEDELLN_2',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(223,63,8,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Plaza de toros':
+                    return {
+                pane: 'pane_SITIOSDEINTERSMEDELLN_2',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(208,47,5,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Sala múltiple':
+                    return {
+                pane: 'pane_SITIOSDEINTERSMEDELLN_2',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(190,33,2,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Sector urbano o rural de interés':
+                    return {
+                pane: 'pane_SITIOSDEINTERSMEDELLN_2',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(169,22,1,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Teatro':
+                    return {
+                pane: 'pane_SITIOSDEINTERSMEDELLN_2',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(146,11,1,1.0)',
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_SITIOSDEINTERSMEDELLN_2',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(122,4,3,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_SITIOSDEINTERSMEDELLN_2');
+        map.getPane('pane_SITIOSDEINTERSMEDELLN_2').style.zIndex = 402;
+        map.getPane('pane_SITIOSDEINTERSMEDELLN_2').style['mix-blend-mode'] = 'normal';
+        var layer_SITIOSDEINTERSMEDELLN_2 = new L.geoJson(json_SITIOSDEINTERSMEDELLN_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_SITIOSDEINTERSMEDELLN_2',
+            layerName: 'layer_SITIOSDEINTERSMEDELLN_2',
+            pane: 'pane_SITIOSDEINTERSMEDELLN_2',
+            onEachFeature: pop_SITIOSDEINTERSMEDELLN_2,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_SITIOSDEINTERSMEDELLN_2_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_SITIOSDEINTERSMEDELLN_2);
+        map.addLayer(layer_SITIOSDEINTERSMEDELLN_2);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'SITIOS DE INTERÉS MEDELLÍN<br /><table><tr><td style="text-align: center;"><img src="legend/SITIOSDEINTERSMEDELLN_2_Aeropuertodepasajeros0.png" /></td><td>Aeropuerto de pasajeros</td></tr><tr><td style="text-align: center;"><img src="legend/SITIOSDEINTERSMEDELLN_2_Áreascondeclaratoriasdepartamentales1.png" /></td><td>Áreas con declaratorias departamentales</td></tr><tr><td style="text-align: center;"><img src="legend/SITIOSDEINTERSMEDELLN_2_Avenidaycalle2.png" /></td><td>Avenida y calle</td></tr><tr><td style="text-align: center;"><img src="legend/SITIOSDEINTERSMEDELLN_2_Basílica3.png" /></td><td>Basílica</td></tr><tr><td style="text-align: center;"><img src="legend/SITIOSDEINTERSMEDELLN_2_Biblioteca4.png" /></td><td>Biblioteca</td></tr><tr><td style="text-align: center;"><img src="legend/SITIOSDEINTERSMEDELLN_2_Catedral5.png" /></td><td>Catedral</td></tr><tr><td style="text-align: center;"><img src="legend/SITIOSDEINTERSMEDELLN_2_Cementerio6.png" /></td><td>Cementerio</td></tr><tr><td style="text-align: center;"><img src="legend/SITIOSDEINTERSMEDELLN_2_Centroadministrativo7.png" /></td><td>Centro administrativo</td></tr><tr><td style="text-align: center;"><img src="legend/SITIOSDEINTERSMEDELLN_2_Centrodeformacióncultural8.png" /></td><td>Centro de formación cultural</td></tr><tr><td style="text-align: center;"><img src="legend/SITIOSDEINTERSMEDELLN_2_Cerro9.png" /></td><td>Cerro</td></tr><tr><td style="text-align: center;"><img src="legend/SITIOSDEINTERSMEDELLN_2_Claustro10.png" /></td><td>Claustro</td></tr><tr><td style="text-align: center;"><img src="legend/SITIOSDEINTERSMEDELLN_2_Convento11.png" /></td><td>Convento</td></tr><tr><td style="text-align: center;"><img src="legend/SITIOSDEINTERSMEDELLN_2_Edificacióncomercial12.png" /></td><td>Edificación comercial</td></tr><tr><td style="text-align: center;"><img src="legend/SITIOSDEINTERSMEDELLN_2_Escultura13.png" /></td><td>Escultura</td></tr><tr><td style="text-align: center;"><img src="legend/SITIOSDEINTERSMEDELLN_2_Estacióndeferrocarril14.png" /></td><td>Estación de ferrocarril</td></tr><tr><td style="text-align: center;"><img src="legend/SITIOSDEINTERSMEDELLN_2_Estadio15.png" /></td><td>Estadio</td></tr><tr><td style="text-align: center;"><img src="legend/SITIOSDEINTERSMEDELLN_2_Estatua16.png" /></td><td>Estatua</td></tr><tr><td style="text-align: center;"><img src="legend/SITIOSDEINTERSMEDELLN_2_Fuente17.png" /></td><td>Fuente</td></tr><tr><td style="text-align: center;"><img src="legend/SITIOSDEINTERSMEDELLN_2_Iglesia18.png" /></td><td>Iglesia</td></tr><tr><td style="text-align: center;"><img src="legend/SITIOSDEINTERSMEDELLN_2_Jardínbotánico19.png" /></td><td>Jardín botánico</td></tr><tr><td style="text-align: center;"><img src="legend/SITIOSDEINTERSMEDELLN_2_Monumento20.png" /></td><td>Monumento</td></tr><tr><td style="text-align: center;"><img src="legend/SITIOSDEINTERSMEDELLN_2_Museo21.png" /></td><td>Museo</td></tr><tr><td style="text-align: center;"><img src="legend/SITIOSDEINTERSMEDELLN_2_Otro22.png" /></td><td>Otro</td></tr><tr><td style="text-align: center;"><img src="legend/SITIOSDEINTERSMEDELLN_2_Parquetemáticoyrecreativo23.png" /></td><td>Parque temático y recreativo</td></tr><tr><td style="text-align: center;"><img src="legend/SITIOSDEINTERSMEDELLN_2_Parqueurbano24.png" /></td><td>Parque urbano</td></tr><tr><td style="text-align: center;"><img src="legend/SITIOSDEINTERSMEDELLN_2_Planetario25.png" /></td><td>Planetario</td></tr><tr><td style="text-align: center;"><img src="legend/SITIOSDEINTERSMEDELLN_2_Plaza26.png" /></td><td>Plaza</td></tr><tr><td style="text-align: center;"><img src="legend/SITIOSDEINTERSMEDELLN_2_Plazademercado27.png" /></td><td>Plaza de mercado</td></tr><tr><td style="text-align: center;"><img src="legend/SITIOSDEINTERSMEDELLN_2_Plazadetoros28.png" /></td><td>Plaza de toros</td></tr><tr><td style="text-align: center;"><img src="legend/SITIOSDEINTERSMEDELLN_2_Salamúltiple29.png" /></td><td>Sala múltiple</td></tr><tr><td style="text-align: center;"><img src="legend/SITIOSDEINTERSMEDELLN_2_Sectorurbanooruraldeinterés30.png" /></td><td>Sector urbano o rural de interés</td></tr><tr><td style="text-align: center;"><img src="legend/SITIOSDEINTERSMEDELLN_2_Teatro31.png" /></td><td>Teatro</td></tr><tr><td style="text-align: center;"><img src="legend/SITIOSDEINTERSMEDELLN_2_32.png" /></td><td></td></tr></table>': layer_SITIOSDEINTERSMEDELLN_2,'COMUNAS Y CORREGIMIENTOS<br /><table><tr><td style="text-align: center;"><img src="legend/COMUNASYCORREGIMIENTOS_1_Aranjuez0.png" /></td><td>Aranjuez</td></tr><tr><td style="text-align: center;"><img src="legend/COMUNASYCORREGIMIENTOS_1_Belén1.png" /></td><td>Belén</td></tr><tr><td style="text-align: center;"><img src="legend/COMUNASYCORREGIMIENTOS_1_BuenosAires2.png" /></td><td>Buenos Aires</td></tr><tr><td style="text-align: center;"><img src="legend/COMUNASYCORREGIMIENTOS_1_Castilla3.png" /></td><td>Castilla</td></tr><tr><td style="text-align: center;"><img src="legend/COMUNASYCORREGIMIENTOS_1_CorregimientodeAltavista4.png" /></td><td>Corregimiento de Altavista</td></tr><tr><td style="text-align: center;"><img src="legend/COMUNASYCORREGIMIENTOS_1_CorregimientodeSanAntoniodePrado5.png" /></td><td>Corregimiento de San Antonio de Prado</td></tr><tr><td style="text-align: center;"><img src="legend/COMUNASYCORREGIMIENTOS_1_CorregimientodeSanCristóbal6.png" /></td><td>Corregimiento de San Cristóbal</td></tr><tr><td style="text-align: center;"><img src="legend/COMUNASYCORREGIMIENTOS_1_CorregimientodeSanSebastiándePalmitas7.png" /></td><td>Corregimiento de San Sebastián de Palmitas</td></tr><tr><td style="text-align: center;"><img src="legend/COMUNASYCORREGIMIENTOS_1_CorregimientodeSantaElena8.png" /></td><td>Corregimiento de Santa Elena</td></tr><tr><td style="text-align: center;"><img src="legend/COMUNASYCORREGIMIENTOS_1_DocedeOctubre9.png" /></td><td>Doce de Octubre</td></tr><tr><td style="text-align: center;"><img src="legend/COMUNASYCORREGIMIENTOS_1_ElPoblado10.png" /></td><td>El Poblado</td></tr><tr><td style="text-align: center;"><img src="legend/COMUNASYCORREGIMIENTOS_1_Guayabal11.png" /></td><td>Guayabal</td></tr><tr><td style="text-align: center;"><img src="legend/COMUNASYCORREGIMIENTOS_1_LaAmérica12.png" /></td><td>La América</td></tr><tr><td style="text-align: center;"><img src="legend/COMUNASYCORREGIMIENTOS_1_LaCandelaria13.png" /></td><td>La Candelaria</td></tr><tr><td style="text-align: center;"><img src="legend/COMUNASYCORREGIMIENTOS_1_LaurelesEstadio14.png" /></td><td>Laureles Estadio</td></tr><tr><td style="text-align: center;"><img src="legend/COMUNASYCORREGIMIENTOS_1_Manrique15.png" /></td><td>Manrique</td></tr><tr><td style="text-align: center;"><img src="legend/COMUNASYCORREGIMIENTOS_1_Popular16.png" /></td><td>Popular</td></tr><tr><td style="text-align: center;"><img src="legend/COMUNASYCORREGIMIENTOS_1_Robledo17.png" /></td><td>Robledo</td></tr><tr><td style="text-align: center;"><img src="legend/COMUNASYCORREGIMIENTOS_1_SanJavier18.png" /></td><td>San Javier</td></tr><tr><td style="text-align: center;"><img src="legend/COMUNASYCORREGIMIENTOS_1_SantaCruz19.png" /></td><td>Santa Cruz</td></tr><tr><td style="text-align: center;"><img src="legend/COMUNASYCORREGIMIENTOS_1_VillaHermosa20.png" /></td><td>Villa Hermosa</td></tr><tr><td style="text-align: center;"><img src="legend/COMUNASYCORREGIMIENTOS_1_21.png" /></td><td></td></tr></table>': layer_COMUNASYCORREGIMIENTOS_1,"Google Maps": layer_GoogleMaps_0,}).addTo(map);
+        setBounds();
+        var i = 0;
+        layer_COMUNASYCORREGIMIENTOS_1.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['NOMBRE'] !== null?String('<div style="color: #000000; font-size: 7pt; font-family: \'Open Sans\', sans-serif;">' + layer.feature.properties['NOMBRE']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_COMUNASYCORREGIMIENTOS_1'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        map.addControl(new L.Control.Search({
+            layer: layer_SITIOSDEINTERSMEDELLN_2,
+            initial: false,
+            hideMarkerOnCollapse: true,
+            propertyName: 'NOMBRE'}));
+        document.getElementsByClassName('search-button')[0].className +=
+         ' fa fa-binoculars';
+        resetLabels([layer_COMUNASYCORREGIMIENTOS_1]);
+        map.on("zoomend", function(){
+            resetLabels([layer_COMUNASYCORREGIMIENTOS_1]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_COMUNASYCORREGIMIENTOS_1]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_COMUNASYCORREGIMIENTOS_1]);
+        });
+        </script>
+    </body>
+</html>
