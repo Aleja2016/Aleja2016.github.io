@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Leaflet Draw</title>
+
+    <style>
+      html,
+      body,
+      #map {
+        height: 100vh;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+
+    <!-- ///scrips -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@v0.74.0/dist/L.Control.Locate.min.css"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@v0.74.0/dist/L.Control.Locate.min.js"
+      charset="utf-8"
+    ></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.74.4/dist/L.Control.Locate.min.css"
+    />
+
+    <!-- ///scrips -->
+  </head>
+  <body>
+    <div id="map"></div>
+  </body>
+</html>
+
+<!-- leaflet js  -->
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
+/>
+<script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"></script>
+
+<!-- leaflet draw plugin  -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.css"
+/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.js"></script>
+
+<!-- leaflet js  -->
+<!-- <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script> -->
+<script
+  src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.74.0/dist/L.Control.Locate.min.js"
+  charset="utf-8"
+></script>
+
+<script>
+  // Initialize the map
+  var map = L.map("map").setView([6.2520383, -75.5950971], 13);
+
+  // Add the OpenStreetMap tiles
+  var osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution:
+      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  });
+  osm.addTo(map);
+
+  // leaflet draw
+  var drawnFeatures = new L.FeatureGroup();
+  map.addLayer(drawnFeatures);
+
+  var drawControl = new L.Control.Draw({
+    // position: "topright",
+    edit: {
+      featureGroup: drawnFeatures,
+      remove: false,
+    },
+    draw: {
+      polygon: {
+        shapeOptions: {
+          color: "purple",
+        },
+        //  allowIntersection: false,
+        //  drawError: {
+        //   color: 'orange',
+        //   timeout: 1000
+        //  },
+      },
+      polyline: {
+        shapeOptions: {
+          // whit the shape options we can edit some characteristics
+          color: "red",
+        },
+      },
+      rect: {
+        shapeOptions: {
+          color: "green",
+        },
+      },
+      circle: {
+        shapeOptions: {
+          color: "steelblue",
+        },
+      },
+    },
+  });
+  map.addControl(drawControl);
+
+  // Next line is for create file for save in database:
+  map.on("draw:created", function (e) {
+    var type = e.layerType;
+    var layer = e.layer;
+    console.log(layer.toGeoJSON()); // whit this line toGoJSON() we convert the layer in document of tipe goJson
+
+    layer.bindPopup(`<p>${JSON.stringify(layer.toGeoJSON())}</p>`);
+    drawnFeatures.addLayer(layer);
+  });
+
+  // The next code is for update and save when exist some change, save in geojson:
+  map.on("draw:edited", function (e) {
+    var layers = e.layers;
+    var type = e.layerType;
+
+    layers.eachLayer(function (layer) {
+      console.log(layer); // Instead of this console we can put the function for save in the database.
+    });
+  });
+
+  L.control.locate().addTo(map);
+</script>

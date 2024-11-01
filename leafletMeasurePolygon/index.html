@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Medidor de Areas</title>
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.css"
+    />
+    <link
+      rel="stylesheet"
+      href="./Leaflet.MeasurePolygon/libs/leaflet-measure-path.css"
+    />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.js"></script>
+    <script src="./Leaflet.MeasurePolygon/libs/editable.js"></script>
+    <script src="./Leaflet.MeasurePolygon/libs/measure.js"></script>
+    <script src="./Leaflet.MeasurePolygon/leaflet.MeasurePolygon.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="../../Library/leaflet.browser.print.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      #map {
+        width: 100%;
+        height: 95vh;
+      }
+      .search {
+        position: absolute;
+        top: 10px;
+        right: 50px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script src="../../Library/leaflet.browser.print.min.js"></script>
+    <div class="leaflet-control search">
+      <input type="text" placeholder="Latitud,Longitud" />
+      <button id="search-btn">Buscar</button>
+    </div>
+    <div id="map"></div>
+
+    <!-- jquery  -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+      const map = L.map("map", { editable: true }).setView(
+        [6.2520383, -75.5950971],
+        13
+      );
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      }).addTo(map);
+
+      var marker = L.marker([6.2520383, -75.5950971]).addTo(map);
+
+      const customOptions = {
+        icon_active: "../Basic/img/antena.gif",
+        icon_inactive: "../Basic/img/antena.gif",
+        color_polygon: "black",
+        fillColor_polygon: "blue",
+        weight_polygon: 3,
+        msj_disable_tool: "Desea borrar el poligono actual?",
+      };
+
+      const measurePolygonControl = L.control.measurePolygon(customOptions);
+      measurePolygonControl.addTo(map);
+
+      //   ************************************
+
+      $("#search-btn").click(function () {
+        var latlng = $("input").val();
+        var latlngArr = latlng.split(",");
+        var lat = latlngArr[0];
+        var lng = latlngArr[1];
+        map.setView([lat, lng], 8);
+        marker.setLatLng([lat, lng]);
+      });
+
+      //   *Map print:
+      $(".print-map").click(function () {
+        window.print();
+      });
+
+      L.control.browserPrint().addTo(map); //plugin en la web: https://igor-vladyka.github.io/leaflet.browser.print/
+    </script>
+    <!-- <button class="print-map"></button>
+    <button onclick="fullScreenView()"></button>
+    <button class="zoom-to-layer"></button> -->
+  </body>
+</html>

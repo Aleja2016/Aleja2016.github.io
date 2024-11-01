@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Leaflet Tutorial</title>
+
+    <!-- leaflet css  -->
+    <!-- ¿¿1 this stylesheet is in the web:
+    https://leafletjs.com/examples/quick-start/-->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    />
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      #map {
+        width: 100%;
+        height: 100vh;
+      }
+
+      .coordinate {
+        position: absolute;
+        bottom: 10px;
+        right: 50%;
+        background-color: #000000;
+      }
+
+      .leaflet-popup-content-wrapper {
+        background-color: #000000;
+        color: #fff;
+        border: 1px solid red;
+        border-radius: 0px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="map">
+      <div class="leaflet-control coordinate"></div>
+    </div>
+  </body>
+</html>
+
+<!-- leaflet js  -->
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<!-- ¿¿12 this is the form of use geojson. call a var in .js file. this was made manueally -->
+<script src="./data/point.js"></script>
+<script src="./data/line.js"></script>
+<script src="./data/polygon.js"></script>
+
+<script>
+  // Map initialization
+  var map = L.map("map").setView([28.3949, 84.124], 8);
+
+  /*==============================================
+                TILE LAYER and WMS
+    ================================================*/
+  // *¿¿2 this layers are in the next url:
+  //https://leaflet-extras.github.io/leaflet-providers/preview/
+  //osm layer
+  var osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution:
+      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  });
+  osm.addTo(map);
+  // map.addLayer(osm)
+
+  // water color
+  var watercolor = L.tileLayer(
+    "https://tiles.stadiamaps.com/tiles/stamen_watercolor/{z}/{x}/{y}.{ext}",
+    {
+      minZoom: 1,
+      maxZoom: 16,
+      attribution:
+        '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://www.stamen.com/" target="_blank">Stamen Design</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      ext: "jpg",
+    }
+  );
+  // watercolor.addTo(map)
+
+  // dark map
+  var dark = L.tileLayer(
+    "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+    {
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+      subdomains: "abcd",
+      maxZoom: 19,
+    }
+  );
+  // dark.addTo(map)
+
+  // ¿¿3 google street
+  //   Hibrid:s,h;
+  // satelite: s;-----> lyrs=s&x
+  // streets:m;---->lyrs=m&x
+  // terrain:p;
+  googleStreets = L.tileLayer(
+    "http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}",
+    {
+      maxZoom: 20,
+      subdomains: ["mt0", "mt1", "mt2", "mt3"],
+    }
+  );
+  // googleStreets.addTo(map);
+
+  //¿¿4google satellite
+  googleSat = L.tileLayer("http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}", {
+    maxZoom: 20,
+    subdomains: ["mt0", "mt1", "mt2", "mt3"],
+  });
+  // googleSat.addTo(map)
+  // ¿¿12 this is a wms we can charge a raster in other server, for example in geoserver
+  var wms = L.tileLayer.wms("http://localhost:8080/geoserver/wms", {
+    layers: "geoapp:admin",
+    format: "image/png",
+    transparent: true,
+    attribution: "wms test",
+  });
+
+  /*==============================================
+                        ¿¿5 MARKER
+    ================================================*/
+  var myIcon = L.icon({
+    //¿¿6 IMAGE marker
+    iconUrl: "img/guiño.gif",
+    iconSize: [80, 80],
+    // popupAnchor: [-3, -76],
+    // shadowUrl: 'my-icon-shadow.png',
+    // shadowSize: [68, 95],
+    // shadowAnchor: [22, 94]
+  });
+  var singleMarker = L.marker([28.3949, 84.124], {
+    icon: myIcon,
+    draggable: true, //¿¿7 this property allow to move the image around the map (arrastrable)
+  });
+  var popup = singleMarker
+    .bindPopup("This is the image or gif. " + singleMarker.getLatLng()) // ¿¿8 .getLatLng() brings to us the latitude and longitude although is draggable
+    .openPopup();
+  popup.addTo(map);
+
+  var secondMarker = L.marker([29.3949, 83.124], {
+    icon: myIcon,
+    draggable: true,
+  });
+
+  console.log(singleMarker.toGeoJSON()); //¿¿8 toGeoJSON convert object in a json in format of geojson!
+  // console.log(JSON.stringify(singleMarker.toGeoJSON())); // ¿¿9 geoJSON to string.
+
+  /*==============================================
+                GEOJSON
+    ================================================*/
+  var pointData = L.geoJSON(pointJson).addTo(map);
+  var lineData = L.geoJSON(lineJson).addTo(map);
+  var polygonData = L.geoJSON(polygonJson, {
+    // ¿¿12 IN this function we can put for example a message, when we click in area of polygon
+    onEachFeature: function (feature, layer) {
+      layer.bindPopup(`<b>Name: </b>` + feature.properties.name);
+    },
+    style: {
+      fillColor: "red",
+      //   fillOpacity: 1, // ¿¿13  this options allow to us full opacity in poligon
+      opacity: 0.2,
+      color: "#c0c0c0",
+    },
+  }).addTo(map);
+
+  /*==============================================
+                    LAYER CONTROL
+    ================================================*/
+  var baseMaps = {
+    // this are the elements in the menu.
+    OSM: osm,
+    "Water color map": watercolor,
+    Dark: dark,
+    "Google Street": googleStreets,
+    "Google Satellite": googleSat,
+  };
+  var overlayMaps = {
+    "First Marker": singleMarker,
+    "Second Marker": secondMarker,
+    "Point Data": pointData,
+    "Line Data": lineData,
+    "Polygon Data": polygonData,
+    wms: wms,
+  };
+  // map.removeLayer(singleMarker) //¿¿10 this is the form to use a function of the url: https://leafletjs.com/reference.html#control-layers   IN OPTION METHODS, i can remove for example complete layers map.removeLayer(osm) (osm is a layer or map)
+  //   here is where we put or add the markers in the map:
+  L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(map);
+  // ¿¿11 collapse is a function of leapflet for show the menu
+  /*==============================================
+                      ¿¿13 LEAFLET EVENTS
+    ================================================*/
+  map.on("mouseover", function () {
+    console.log("your mouse is over the map");
+  });
+
+  //   latlng is a function of leaflet, search in documentation
+  //   this appears in middle of screen, are the coordinates in white letters in the map
+  map.on("mousemove", function (e) {
+    document.getElementsByClassName("coordinate")[0].innerHTML =
+      "latitud: " + e.latlng.lat + "  longitud: " + e.latlng.lng;
+    // console.log("lat: " + e.latlng.lat, "lng: " + e.latlng.lng);
+  });
+
+  /*==============================================
+                    STYLE CUSTOMIZATION
+    ================================================*/
+</script>

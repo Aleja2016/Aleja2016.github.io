@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Geolocation</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css"
+    />
+    <link rel="stylesheet" href="../../Library/leaflet-measure.css" />
+
+    <!-- Goecoder is the search in the map by name of place -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css"
+    />
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      #map {
+        width: 100%;
+        height: 80vh;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="map"></div>
+    <button class="print-map">Print map</button>
+    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"></script>
+    <script src="../../Library/leaflet.browser.print.min.js"></script>
+    <script src="../../Library/leaflet-measure.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+      integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <div class="coordinate"></div>
+
+    <button onclick="fullScreenView()">View in full screen</button>
+    <button class="zoom-to-layer">Zoom to layer</button>
+    <script>
+      //   var map = L.map("map", { measureControl: true }).setView([28.238, 83.9956], 11);
+      var map = L.map("map").setView([28.238, 83.9956], 11);
+
+      map.zoomControl.setPosition("topright"); // 17 zoomControl, change position of zoom
+
+      mapLink = "<a href='http://openstreetmap.org'>OpenStreetMap</a>";
+      L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
+        attribution: "Leaflet &copy; " + mapLink + ", contribution",
+        maxZoom: 18,
+      }).addTo(map);
+
+      L.marker([28.238, 83.9956]).addTo(map);
+
+      //   Geocoder is the search by name of place
+      L.Control.geocoder().addTo(map);
+
+      L.control.scale({ position: "bottomright" }).addTo(map); // 16 control.scale  put in the screen the km scale of map
+
+      var mapId = document.getElementById("map");
+      function fullScreenView() {
+        mapId.requestFullscreen();
+      }
+
+      //   18 this is use jquery  < src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer">
+      map.on("mousemove", function (e) {
+        // console.log(e);
+        $(".coordinate").html(`Lat: ${e.latlng.lat}  Lng: ${e.latlng.lng}`); //  $(".coordinate").html(`Lat: ${e.latlng.lat}  Lng: ${e.latlng.lng}`);
+      });
+
+      //   *Map print:
+      $(".print-map").click(function () {
+        window.print();
+      });
+
+      L.control.browserPrint().addTo(map); //plugin en la web: https://igor-vladyka.github.io/leaflet.browser.print/
+
+      //   ¿¿19 Leaflet measure:
+      L.control
+        .measure({
+          primaryAreaUnit: "kilometers",
+          secondaryAreaUnit: undefined,
+          primaryLengthUnit: "kilometers",
+          secondaryLengthUnit: "miles",
+        })
+        .addTo(map);
+
+      // Zoom to layer function:
+      // this allow to go back or return to the start position.
+      $(".zoom-to-layer").click(function () {
+        map.setView([28.238, 83.9956], 11);
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es" data-dark>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="icon" type="gif" href="assets/images/Logo.jpg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Geovisores</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/hamburgers/1.2.1/hamburgers.css"
+    />
+    <link rel="stylesheet" href="manejo_del_dom/css/dom_ejercicios.css" />
+  </head>
+
+  <body data-dark>
+    <header class="header">
+      <center>
+        <h1 class="animated-text">
+          Portafolio de geovisores por Diana Aguirre Cardona
+          <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp<a href="" style="color:var(--main-color)" target="_blank">geovisor principal</a> -->
+        </h1>
+      </center>
+    </header>
+    <button class="panel-btn hamburger--vortex visibleMenu" type="button">
+      <span class="hamburger-box">
+        <span class="hamburger-inner"></span>
+      </span>
+    </button>
+    <aside class="panel">
+      <nav class="menu">
+        <a href="#seccion1" data-scroll-spy> Inicio</a>
+        <!-- <a href="#seccion3" data-scroll-spy>Medidor de Area y Perímetro</a> -->
+        <a href="#seccion4" data-scroll-spy>Medidor de Área y Perímetro</a>
+        <a href="#seccion8" data-scroll-spy>Sitios turísticos</a>
+        <a href="#seccion9" data-scroll-spy>Comparación lado a lado</a>
+        <a href="#seccion10" data-scroll-spy>Comparador cortina</a>
+        <a href="#seccion11" data-scroll-spy>Ruta cercana</a>
+        <a href="#seccion12" data-scroll-spy>Dibujar formas</a>
+        <a href="#seccion13" data-scroll-spy>Ruta con logo</a>
+        <a href="#seccion14" data-scroll-spy>Seguimiento de la ubicación</a>
+        <a href="#seccion50" data-scroll-spy
+          >Escríbeme tus comentarios y sugerencias</a
+        >
+      </nav>
+    </aside>
+    <main>
+      <section id="seccion1" class="section" data-scroll-spy>
+        <div class="textBox">
+          <div class="emoticon">
+            <!-- <p class="girar mgc" id="tv">📺</p> -->
+            <div>
+              <h2 class="mgc">ArcScene</h2>
+              
+
+              <button id="o1" class="BModal" style="border-radius: 15px">
+                Ver en youtube
+              </button>
+            </div>
+          </div>
+          <video
+            id="videoInteligente"
+            src="./assets/3d.mp4"
+            controls
+            muted
+            loop
+            data-smart-video
+          ></video>
+
+          <!-- para que nos permita iniciar el video debe estar muteado pues los permisos pueden blokearlo -->
+        </div>
+        <br />
+        <div class="modal-background" id="mb1">
+          <div class="modal-content">
+            <p>
+              <a
+                href="https://www.youtube.com/watch?v=BxC_3kO3E8I"
+                target="_blank"
+                style="color: var(--main-color)"
+                >Ver en youtube en otra pestaña</a
+              >
+            </p>
+            <iframe
+              width="700"
+              height="500"
+              src="https://www.youtube.com/embed/BxC_3kO3E8I"
+              title="Geovisores"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+            ></iframe>
+            <br />
+            <br />
+            <button id="c1" class="blue-btn">Cerrar</button>
+          </div>
+        </div>
+        <!-- si uno quiere que el video se reproduzca desde el inicio hay que dar autoplay, pero en dispositivos mobiles el usuario es el que tiene que  darle a la reproduccion. -->
+      </section>
+
+      <!-- <section id="seccion3" class="section" data-scroll-spy>
+        <center>
+
+            <div class="textBox">
+    
+                <p >🌎Medidor de area  &nbsp;&nbsp;&nbsp<a href="qgisLeaflet/sitios_turisticos_2/index.html"target="_blank" style="color:var(--main-color)">Ver 100% de pantalla</a></p>
+                <p>Agregar aqui figuras preexistentes </p>
+            </div>
+        </center>
+        <div id="visor3"></div>
+      </section> -->
+
+      <section id="seccion4" class="section" data-scroll-spy>
+        <center>
+          <div class="textBox">
+            <p>
+              🌎Medidor de área y lados &nbsp;&nbsp;&nbsp<a
+                href="leafletMeasurePolygon/index.html"
+                target="_blank"
+                style="color: var(--main-color)"
+                >Ver 100% de pantalla</a
+              >
+            </p>
+            <p>
+              Click en la antena para iniciar una medición, click en la
+              antena nuevamente para borrar, puedes buscar coordenadas.También
+              puedes imprimir dando click en el logo de impresora, recomiendo la
+              opción custom o auto.
+            </p>
+          </div>
+        </center>
+        <div id="visor9"></div>
+      </section>
+
+      <section id="seccion8" class="section" data-scroll-spy>
+        <div class="textBox">
+          <p>
+            🌎Sitios Turísticos &nbsp;&nbsp;&nbsp<a
+              href="qgisLeaflet/sitios_turisticos_2/index.html"
+              target="_blank"
+              style="color: var(--main-color)"
+              >Ver 100% de pantalla</a
+            >
+          </p>
+          <p>
+            Puedes ver la información detallada de cada zona y punto, click
+            en los puntos para ver el video, en este caso para el
+            ejemplo solo se diferenciaron dos videos, el del parque Arví y el
+            del aeroparque Juan Pablo II. Puedes poner y quitar filtros con el
+            panel y resetearlos en reiniciar filtro. Busca tu ubicación o busca
+            un lugar de interes en los binóculos
+          </p>
+        </div>
+
+        <div id="visor2"></div>
+      </section>
+
+      <section id="seccion9" class="section" data-scroll-spy>
+        <div class="textBox">
+          <p>
+            🌎Comparador lado a lado &nbsp;&nbsp;&nbsp<a
+              href="compareMap/mapCampare2.html"
+              target="_blank"
+              style="color: var(--main-color)"
+              >Ver 100% de pantalla</a
+            >
+          </p>
+          <p>
+            Click sostenido sobre el mapa y podrás ver una comparativa lado a
+            lado de los dos tipos de mapa.
+          </p>
+        </div>
+
+        <div id="visor4"></div>
+      </section>
+
+      <section id="seccion10" class="section" data-scroll-spy>
+        <div class="textBox">
+          <p>
+            🌎Comparador cortina &nbsp;&nbsp;&nbsp<a
+              href="compareMap/sibeBySide.html"
+              target="_blank"
+              style="color: var(--main-color)"
+              >Ver 100% de pantalla</a
+            >
+          </p>
+          <p>
+            Click sostenido sobre el punto central con las 3 líneas y arrastra
+            la línea para comparar los dos tipos de mapa.
+          </p>
+        </div>
+
+        <div id="visor10"></div>
+      </section>
+
+      <section id="seccion11" class="section" data-scroll-spy>
+        <div class="textBox">
+          <p>
+            🌎Ruta cercana &nbsp;&nbsp;&nbsp<a
+              href="leaflet Routing Machine/index.html"
+              target="_blank"
+              style="color: var(--main-color)"
+              >Ver 100% de pantalla</a
+            >
+          </p>
+          <p>
+            Click sostenido en alguno de los marcadores y arrastralo donde
+            quieras para ver la ruta más rápida entre los dos marcadores.
+          </p>
+        </div>
+        <div id="visor5"></div>
+      </section>
+
+      <section id="seccion12" class="section" data-scroll-spy>
+        <div class="textBox">
+          <p>
+            🌎Dibujar &nbsp;&nbsp;&nbsp<a
+              href="draw/index.html"
+              target="_blank"
+              style="color: var(--main-color)"
+              >Ver 100% de pantalla</a
+            >
+          </p>
+          <p>
+            En el panel a la derecha puedes tomar diferentes opciones para
+            marcar sobre el mapa, sea marcadores, polígonos o líneas.
+          </p>
+        </div>
+        <div id="visor6"></div>
+      </section>
+
+      <section id="seccion13" class="section" data-scroll-spy>
+        <div class="textBox">
+          <p>
+            🌎Ruta con logo &nbsp;&nbsp;&nbsp<a
+              href="routing/index.html"
+              target="_blank"
+              style="color: var(--main-color)"
+              >Ver 100% de pantalla</a
+            >
+          </p>
+          <p>
+            Click en algun punto donde quieras mostrar la ruta del vehículo.
+          </p>
+        </div>
+        <div id="visor7"></div>
+      </section>
+
+      <section id="seccion14" class="section" data-scroll-spy>
+        <div class="textBox">
+          <p>
+            🌎Seguimiento de la ubicación &nbsp;&nbsp;&nbsp<a
+              href="realtime location/index.html"
+              target="_blank"
+              style="color: var(--main-color)"
+              >Ver 100% de pantalla</a
+            >
+          </p>
+          <p>
+            La ubicación se actualizará cada 5 segundos. Ideal para ver el
+            movimiento en tiempo real, requiere permisos de ubicación.
+          </p>
+        </div>
+        <div id="visor8"></div>
+      </section>
+
+
+      <section id="seccion50" style="margin: 100px">
+        <div class="textBox">
+          <center>
+            <img
+              src="./assets/gif/guiño.gif"
+              id="img_guiño"
+              alt="Gracias"
+              style="height: 50px"
+            />
+            <br />
+            <h1>
+              Gracias por ver mi portafolio de mapas, pronte subiré mas
+              geovisores!
+            </h1>
+            
+            
+           
+           
+            <h3 style="color: red">
+              Escríbeme al correo aleja160220@gmail.com
+            </h3>
+            <h3 style="color: yellow">
+              Escríbeme al whatsapp 3008401930 o click en el boton de
+              whatsapp a la izquierda
+            </h3>
+          </center>
+        </div>
+      </section>
+    </main>
+    <button class="scroll-top-btn hidden">&#11014;</button>
+    <button class="dark-theme-btn">🌌</button>
+    <a
+      href="https://wa.me/573008401930?text=Hola%20me%20interesa%20tu%20trabajo!"
+      class="whatsapp"
+      target="_blank"
+      rel="noreferrer"
+    ></a>
+    <script src="manejo_del_dom/js/index_dom.js" type="module"></script>
+  </body>
+</html>
+
+<!-- // cambas, drag and drop y otras api de javaScript : cosas del front que puedo aprender -->

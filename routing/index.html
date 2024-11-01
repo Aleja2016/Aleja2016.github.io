@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Geolocation</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css"
+    />
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      #map {
+        width: 100%;
+        height: 400px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="map" style="width: 100%; height: 80vh"></div>
+    <!-- <button class="print-map">Print map</button> -->
+    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+    <script src="../Library/leaflet.browser.print.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+      integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <div class="coordinate"></div>
+
+    <!-- <button onclick="fullScreenView()">View in full screen</button> -->
+    <script>
+      var map = L.map("map").setView([6.2397983, -75.5767846], 18);
+      mapLink = "<a href='http://openstreetmap.org'>OpenStreetMap</a>";
+      L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
+        attribution: "Leaflet &copy; " + mapLink + ", contribution",
+        maxZoom: 18,
+      }).addTo(map);
+
+      var taxiIcon = L.icon({
+        iconUrl: "img/taxi.png",
+        iconSize: [70, 70],
+      });
+
+      //   ¿¿15 here is where the marker init
+      var marker = L.marker([6.2397983, -75.5767846], { icon: taxiIcon }).addTo(
+        map
+      );
+
+      map.on("click", function (e) {
+        console.log(e);
+        // this put the simple marker or icon by not the red line
+        var newMarker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
+
+        //  ¿¿16 this function put the red line:
+        L.Routing.control({
+          waypoints: [
+            L.latLng(6.2397983, -75.5767846),
+            L.latLng(e.latlng.lat, e.latlng.lng),
+            // ¿¿14 here is where we can put the points and calculate the distance between they booth.
+          ],
+        })
+          .on("routesfound", function (e) {
+            var routes = e.routes;
+            console.log(routes);
+
+            // ¿¿15 this function allow the icon road by the red line
+            e.routes[0].coordinates.forEach(function (coord, index) {
+              setTimeout(function () {
+                marker.setLatLng([coord.lat, coord.lng]);
+              }, 100 * index);
+            });
+          })
+          .addTo(map);
+      });
+      L.control.scale({ position: "bottomright" }).addTo(map); // ¿¿16 control.scale  put in the screen the km scale of map
+      map.zoomControl.setPosition("topright"); // ¿¿17 zoomControl, change position of zoom
+
+      var mapId = document.getElementById("map");
+      function fullScreenView() {
+        mapId.requestFullscreen();
+      }
+
+      //   ¿¿18 this is use jquery  < src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer">
+      map.on("mousemove", function (e) {
+        // console.log(e);
+        $(".coordinate").html(
+          `Latitud: ${e.latlng.lat}  Longitud: ${e.latlng.lng}`
+        ); // ¿¿ $(".coordinate").html(`Lat: ${e.latlng.lat}  Lng: ${e.latlng.lng}`);
+      });
+
+      //   *Map print:
+      $(".print-map").click(function () {
+        window.print();
+      });
+
+      L.control.browserPrint().addTo(map); //plugin en la web: https://igor-vladyka.github.io/leaflet.browser.print/
+    </script>
+  </body>
+</html>
